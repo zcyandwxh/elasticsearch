@@ -62,8 +62,8 @@ public class Elasticsearch {
                 .addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
 
         SearchResponse searchResponse = client.prepareSearch("huixing", "qw").setTypes("user", "user").setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setQuery(QueryBuilders.matchQuery("name", "zcy")).setPostFilter(QueryBuilders.rangeQuery("age").from(1).to(100)).get();
-
-        System.out.println(searchResponse);
+//        SearchRequestBuilder searchRequestBuilder = client.prepareSearch("huixing", "qw").set;
+//        System.out.println(searchRequestBuilder);
 //        SearchResponse searchResponse = client.prepareSearch("huixing").setTerminateAfter(10).get();
 //
 //        if (searchResponse.isTerminatedEarly()) {

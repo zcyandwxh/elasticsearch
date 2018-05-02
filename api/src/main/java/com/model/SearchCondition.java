@@ -2,6 +2,7 @@ package com.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,8 @@ import java.util.List;
  *  
  */
 @Data
-public class SearchCondition {
+public class SearchCondition implements Serializable{
+    private static final long serialVersionUID = -1360917639181449837L;
     private Integer start;
     private Integer size;
     private String analyser = "ik";

@@ -72,7 +72,7 @@ public class ESServiceImpl implements ESService {
         result.setCode(Constant.SUCCESS.getCode());
         result.setDesc(Constant.SUCCESS.getDesc());
         result.setData(providerDTOS);
-        return null;
+        return result;
     }
 
 }

@@ -2,6 +2,8 @@ package com.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  *   
  * <p>过滤条件</p>
@@ -12,7 +14,8 @@ import lombok.Data;
  *  
  */
 @Data
-public class Fileter {
+public class Fileter implements Serializable{
+    private static final long serialVersionUID = -6446362234079136817L;
     private String value;
     private String name;
 }

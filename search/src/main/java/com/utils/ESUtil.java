@@ -1,5 +1,6 @@
 package com.utils;
 
+import com.model.Condition;
 import com.model.SearchCondition;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -10,6 +11,7 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  *   
@@ -50,29 +52,25 @@ public class ESUtil {
     public static SearchResponse search(TransportClient transportClient, SearchCondition searchCondition) {
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
         SearchRequestBuilder searchRequestBuilder = transportClient.prepareSearch(PRODUCT_INFO);
-        searchRequestBuilder.setFrom(searchCondition.getStart());
-        searchRequestBuilder.setSize(searchCondition.getSize());
         //返回权重结果
         searchRequestBuilder.setExplain(true);
-        final MultiMatchQueryBuilder[] multiMatchQueryBuilder = {null};
         //设置查询条件
-        searchCondition.getCondition().stream().forEach((x) -> {
-            int i = 0;
-            multiMatchQueryBuilder[i] = QueryBuilders.multiMatchQuery(x.getText());
-            boolQueryBuilder.must(multiMatchQueryBuilder[i]);
-            i++;
-        });
+        List<Condition> conditions = searchCondition.getCondition();
+        for (Condition condition : conditions) {
+            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder(condition.getText(), condition.getFileName());
+            boolQueryBuilder.should(matchQueryBuilder);
+        }
 
         BoolQueryBuilder builder = new BoolQueryBuilder();
         //设置过滤条件
-        searchCondition.getFilters().stream().forEach((x) -> {
-            MatchQueryBuilder matchQuery = QueryBuilders.matchQuery(x.getName(), x.getValue());
-            builder.must(matchQuery);
-        });
+//        searchCondition.getFilters().stream().forEach((x) -> {
+//            MatchQueryBuilder matchQuery = QueryBuilders.matchQuery(x.getName(), x.getValue());
+//            builder.must(matchQuery);
+//        });
         //设置分词器
 //        multiMatchQueryBuilder.analyzer()
         searchRequestBuilder.setQuery(boolQueryBuilder);
-        boolQueryBuilder.filter(builder);
+//        boolQueryBuilder.filter(builder);
         SearchResponse searchResponse = searchRequestBuilder.get();
         return searchResponse;
     }

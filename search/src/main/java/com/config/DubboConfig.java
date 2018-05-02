@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
  * @since V1.0
  *  
  */
-@Configuration
-@ImportResource("dubbo-service.xml")
-public class DubboConfig {
-}
+//@Configuration
+//@ImportResource("dubbo-service.xml")
+//public class DubboConfig {
+//}

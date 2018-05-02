@@ -1,0 +1,8 @@
+com/config/B.class
+manager/ESManager.class
+com/config/Test.class
+com/service/impl/ESServiceImpl.class
+com/utils/ESUtil.class
+Elasticsearch.class
+com/config/Test$O.class
+ElasticsearchBoot.class

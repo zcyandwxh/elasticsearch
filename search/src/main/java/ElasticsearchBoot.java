@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ComponentScan("com")
+@ImportResource("classpath:dubbo-service.xml")
 public class ElasticsearchBoot {
     public static void main(String[] args) {
         SpringApplication.run(ElasticsearchBoot.class, args);
